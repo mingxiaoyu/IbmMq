@@ -1,0 +1,80 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MqManager.Desktop.ViewModels"
+             xmlns:models="using:MqManager.Desktop.Models"
+             x:Class="MqManager.Desktop.Views.LoginView"
+             x:DataType="vm:LoginViewModel">
+
+    <Grid>
+        <Border Background="#80000000" />
+
+        <Border HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Background="{DynamicResource AppContentBgBrush}"
+                CornerRadius="12"
+                Padding="40"
+                Width="420"
+                BorderBrush="{DynamicResource AppBorderBrush}"
+                BorderThickness="1"
+                BoxShadow="0 4 20 0 #40000000">
+            <Panel>
+                <!-- Language toggle - top right -->
+                <Button Command="{Binding ToggleLanguageCommand}"
+                        Content="{Binding CurrentLanguage}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Background="Transparent"
+                        Foreground="#1976D2"
+                        FontWeight="SemiBold"
+                        FontSize="14"
+                        Margin="0,0,0,8" />
+
+                <StackPanel Spacing="20" Margin="0,28,0,0">
+                    <TextBlock Text="{Binding Title}"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               Foreground="#1976D2" />
+
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="{Binding ServerLabel}" FontWeight="SemiBold" />
+                        <ComboBox ItemsSource="{Binding Servers}"
+                                  SelectedItem="{Binding SelectedServer}"
+                                  HorizontalAlignment="Stretch"
+                                  MinHeight="36">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="models:ServerConfig">
+                                    <TextBlock Text="{Binding Name}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <Button Content="{Binding ConnectText}"
+                            Command="{Binding ConnectCommand}"
+                            HorizontalAlignment="Stretch"
+                            Height="40"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Background="#1976D2"
+                            Foreground="White"
+                            IsEnabled="{Binding !IsConnecting}" />
+
+                    <TextBlock Text="{Binding StatusMessage}"
+                               HorizontalAlignment="Center"
+                               FontSize="14"
+                               Foreground="{DynamicResource AppSecondaryTextBrush}"
+                               TextWrapping="Wrap"
+                               MaxLines="3" />
+
+                    <Button Content="{Binding SettingsText}"
+                            HorizontalAlignment="Center"
+                            Background="Transparent"
+                            Foreground="#1976D2"
+                            FontWeight="SemiBold"
+                            Click="OnOpenSettings" />
+                </StackPanel>
+            </Panel>
+        </Border>
+    </Grid>
+</UserControl>

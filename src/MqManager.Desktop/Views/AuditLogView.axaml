@@ -1,0 +1,59 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MqManager.Desktop.ViewModels"
+             xmlns:services="using:MqManager.Desktop.Services"
+             x:Class="MqManager.Desktop.Views.AuditLogView"
+             x:DataType="vm:AuditLogViewModel"
+             x:Name="Root">
+
+    <DockPanel>
+        <!-- Toolbar -->
+        <Border DockPanel.Dock="Top"
+                Padding="16,10"
+                BorderBrush="#E0E0E0"
+                BorderThickness="0,0,0,1">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBlock Text="{Binding TitleLabel}"
+                           FontSize="16"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center" />
+                <Button Content="{Binding SaveText}"
+                        Command="{Binding SaveToFileCommand}"
+                        Margin="16,0,0,0"
+                        Height="32" />
+                <Button Content="{Binding ClearText}"
+                        Command="{Binding ClearLogCommand}"
+                        Height="32" />
+            </StackPanel>
+        </Border>
+
+        <!-- DataGrid -->
+        <DataGrid ItemsSource="{Binding Entries}"
+                  AutoGenerateColumns="False"
+                  CanUserSortColumns="True"
+                  IsReadOnly="True"
+                  GridLinesVisibility="Horizontal"
+                  Margin="0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{Binding #Root.((vm:AuditLogViewModel)DataContext).ColTime}"
+                                    Binding="{Binding Timestamp, StringFormat='HH:mm:ss'}"
+                                    Width="80" />
+                <DataGridTextColumn Header="{Binding #Root.((vm:AuditLogViewModel)DataContext).ColCategory}"
+                                    Binding="{Binding Category}"
+                                    Width="90" />
+                <DataGridTextColumn Header="{Binding #Root.((vm:AuditLogViewModel)DataContext).ColOperation}"
+                                    Binding="{Binding Operation}"
+                                    Width="120" />
+                <DataGridTextColumn Header="{Binding #Root.((vm:AuditLogViewModel)DataContext).ColTarget}"
+                                    Binding="{Binding Target}"
+                                    Width="180" />
+                <DataGridTextColumn Header="{Binding #Root.((vm:AuditLogViewModel)DataContext).ColSuccess}"
+                                    Binding="{Binding Success}"
+                                    Width="70" />
+                <DataGridTextColumn Header="{Binding #Root.((vm:AuditLogViewModel)DataContext).ColDetails}"
+                                    Binding="{Binding Details}"
+                                    Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>

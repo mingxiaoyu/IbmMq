@@ -1,0 +1,77 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MqManager.Desktop.ViewModels"
+             x:Class="MqManager.Desktop.Views.ConnectionDetailView"
+             x:DataType="vm:ConnectionDetailViewModel">
+
+    <Border Margin="16" Padding="20"
+            BorderBrush="#E0E0E0"
+            BorderThickness="1"
+            CornerRadius="8">
+        <StackPanel Spacing="12">
+            <TextBlock Text="{Binding DetailsTitle}"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Margin="0,0,0,8" />
+
+            <Grid ColumnDefinitions="120,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="8">
+                <!-- Channel Name -->
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                           Text="{Binding ChannelLabel}"
+                           FontWeight="SemiBold"
+                           Foreground="#666666"
+                           VerticalAlignment="Center" />
+                <TextBlock Grid.Row="0" Grid.Column="1"
+                           Text="{Binding ChannelName}"
+                           VerticalAlignment="Center" />
+
+                <!-- Connection Name -->
+                <TextBlock Grid.Row="1" Grid.Column="0"
+                           Text="{Binding ConnectionLabel}"
+                           FontWeight="SemiBold"
+                           Foreground="#666666"
+                           VerticalAlignment="Center" />
+                <TextBlock Grid.Row="1" Grid.Column="1"
+                           Text="{Binding ConnectionName}"
+                           VerticalAlignment="Center" />
+
+                <!-- App Name -->
+                <TextBlock Grid.Row="2" Grid.Column="0"
+                           Text="{Binding AppNameLabel}"
+                           FontWeight="SemiBold"
+                           Foreground="#666666"
+                           VerticalAlignment="Center" />
+                <TextBlock Grid.Row="2" Grid.Column="1"
+                           Text="{Binding AppName}"
+                           VerticalAlignment="Center" />
+
+                <!-- User ID -->
+                <TextBlock Grid.Row="3" Grid.Column="0"
+                           Text="{Binding UserIdLabel}"
+                           FontWeight="SemiBold"
+                           Foreground="#666666"
+                           VerticalAlignment="Center" />
+                <TextBlock Grid.Row="3" Grid.Column="1"
+                           Text="{Binding UserId}"
+                           VerticalAlignment="Center" />
+
+                <!-- Status -->
+                <TextBlock Grid.Row="4" Grid.Column="0"
+                           Text="{Binding StatusLabel}"
+                           FontWeight="SemiBold"
+                           Foreground="#666666"
+                           VerticalAlignment="Center" />
+                <Border Grid.Row="4" Grid.Column="1"
+                        Background="#E8F5E9"
+                        CornerRadius="8"
+                        Padding="12,4"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Status}"
+                               Foreground="#388E3C"
+                               FontWeight="SemiBold" />
+                </Border>
+            </Grid>
+        </StackPanel>
+    </Border>
+</UserControl>

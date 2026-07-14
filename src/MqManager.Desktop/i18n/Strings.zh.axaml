@@ -1,0 +1,165 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <!-- Login -->
+    <system:String x:Key="Login_Title">MQ 连接管理器</system:String>
+    <system:String x:Key="Login_ServerLabel">服务器</system:String>
+    <system:String x:Key="Login_SelectServer">选择服务器</system:String>
+    <system:String x:Key="Login_Connect">连接</system:String>
+    <system:String x:Key="Login_Settings">设置</system:String>
+    <system:String x:Key="Login_PleaseSelect">请选择服务器</system:String>
+    <system:String x:Key="Login_Connecting">连接中...</system:String>
+    <system:String x:Key="Login_ConnectedTo">已连接到 {0}</system:String>
+    <system:String x:Key="Login_Status_Connected">已连接</system:String>
+    <system:String x:Key="Login_Status_Disconnected">已断开</system:String>
+    <system:String x:Key="Login_Status_Error">连接错误</system:String>
+
+    <!-- Settings -->
+    <system:String x:Key="Settings_Title">服务器设置</system:String>
+    <system:String x:Key="Settings_Servers">服务器列表</system:String>
+    <system:String x:Key="Settings_New">新建</system:String>
+    <system:String x:Key="Settings_Edit">编辑</system:String>
+    <system:String x:Key="Settings_Close">关闭</system:String>
+    <system:String x:Key="Settings_SelectServer">请选择服务器或点击新建</system:String>
+    <system:String x:Key="Settings_ServerConfig">服务器配置</system:String>
+    <system:String x:Key="Settings_Name">名称</system:String>
+    <system:String x:Key="Settings_Host">主机</system:String>
+    <system:String x:Key="Settings_Port">端口</system:String>
+    <system:String x:Key="Settings_Channel">通道</system:String>
+    <system:String x:Key="Settings_QueueManager">队列管理器</system:String>
+    <system:String x:Key="Settings_Username">用户名</system:String>
+    <system:String x:Key="Settings_Password">密码</system:String>
+    <system:String x:Key="Settings_Save">保存</system:String>
+    <system:String x:Key="Settings_Cancel">取消</system:String>
+    <system:String x:Key="Settings_Delete">删除</system:String>
+    <system:String x:Key="Settings_WM_ServerName">服务器名称</system:String>
+    <system:String x:Key="Settings_WM_Hostname">主机名或 IP</system:String>
+    <system:String x:Key="Settings_WM_Port">端口号</system:String>
+    <system:String x:Key="Settings_WM_Channel">通道名称</system:String>
+    <system:String x:Key="Settings_WM_QmName">队列管理器名称</system:String>
+    <system:String x:Key="Settings_WM_Optional">可选</system:String>
+
+    <!-- Window -->
+    <system:String x:Key="Window_Title">IBM MQ 桌面客户端</system:String>
+    <system:String x:Key="App_Title">IBM MQ 桌面客户端</system:String>
+    <system:String x:Key="Window_Disconnect">断开连接</system:String>
+
+    <!-- Tabs / Sidebar headers -->
+    <system:String x:Key="Tab_Queues">队列</system:String>
+    <system:String x:Key="Tab_Channels">通道</system:String>
+    <system:String x:Key="Tab_Connections">连接</system:String>
+    <system:String x:Key="Sidebar_Queues">队列</system:String>
+    <system:String x:Key="Sidebar_Channels">通道</system:String>
+    <system:String x:Key="Sidebar_Connections">连接</system:String>
+
+    <!-- Queues -->
+    <system:String x:Key="Queue_FilterPlaceholder">过滤（如 PAT*）</system:String>
+    <system:String x:Key="Queue_Refresh">刷新</system:String>
+    <system:String x:Key="Queue_Create">创建队列</system:String>
+    <system:String x:Key="Queue_Delete">删除队列</system:String>
+    <system:String x:Key="Queue_Depth">深度</system:String>
+    <system:String x:Key="Queue_CountText">共 {0} 个队列（总计 {1}）</system:String>
+    <system:String x:Key="Queue_Create_Title">创建新队列</system:String>
+    <system:String x:Key="Queue_Create_Name">队列名称</system:String>
+    <system:String x:Key="Queue_Create_Type">队列类型</system:String>
+    <system:String x:Key="Queue_Create_TypeLocal">本地</system:String>
+    <system:String x:Key="Queue_Create_TypeRemote">远程</system:String>
+
+    <!-- Messages -->
+    <system:String x:Key="Msg_Send">发送</system:String>
+    <system:String x:Key="Msg_Receive">接收</system:String>
+    <system:String x:Key="Msg_Browse">浏览</system:String>
+    <system:String x:Key="Msg_Get">获取</system:String>
+    <system:String x:Key="Msg_ExportAll">全部导出</system:String>
+    <system:String x:Key="Msg_ClearQueue">清空队列</system:String>
+    <system:String x:Key="Msg_Purge">清空</system:String>
+    <system:String x:Key="Msg_ConsumeAll">全部消费</system:String>
+    <system:String x:Key="Msg_ModeSingle">文本消息</system:String>
+    <system:String x:Key="Msg_ModeFile">文件</system:String>
+    <system:String x:Key="Msg_ModeFolder">文件夹</system:String>
+    <system:String x:Key="Msg_EnterMessage">输入消息内容...</system:String>
+    <system:String x:Key="Msg_SelectFile">选择文件</system:String>
+    <system:String x:Key="Msg_SelectFolder">选择文件夹</system:String>
+    <system:String x:Key="Msg_CountLabel">数量:</system:String>
+    <system:String x:Key="Msg_Depth">深度</system:String>
+    <system:String x:Key="Msg_DepthPrefix">深度: {0}</system:String>
+    <system:String x:Key="Msg_BrowseBtn">浏览...</system:String>
+    <system:String x:Key="Msg_IdLabel">ID:</system:String>
+    <system:String x:Key="Msg_CorrLabel">关联:</system:String>
+    <system:String x:Key="Msg_CopyBody">复制内容</system:String>
+
+    <!-- Channels -->
+    <system:String x:Key="Channel_FilterPlaceholder">过滤（如 PAT*）</system:String>
+    <system:String x:Key="Channel_Start">启动</system:String>
+    <system:String x:Key="Channel_Stop">停止</system:String>
+    <system:String x:Key="Channel_Reset">重置</system:String>
+    <system:String x:Key="Channel_ForceStart">强制启动</system:String>
+    <system:String x:Key="Channel_ForceStop">强制停止</system:String>
+    <system:String x:Key="Channel_ForceReset">强制重置</system:String>
+    <system:String x:Key="Channel_NameHeader">名称</system:String>
+    <system:String x:Key="Channel_StatusHeader">状态</system:String>
+    <system:String x:Key="Channel_TypeHeader">类型</system:String>
+    <system:String x:Key="Channel_ConnectionHeader">连接名称</system:String>
+    <system:String x:Key="Channel_McaUserHeader">MCA 用户</system:String>
+    <system:String x:Key="Channel_McaNameHeader">MCA 名称</system:String>
+    <system:String x:Key="Channel_BytesSent">发送字节数</system:String>
+    <system:String x:Key="Channel_BytesReceived">接收字节数</system:String>
+    <system:String x:Key="Channel_Messages">消息数</system:String>
+    <system:String x:Key="Channel_BuffersSent">发送缓冲区</system:String>
+    <system:String x:Key="Channel_BuffersReceived">接收缓冲区</system:String>
+    <system:String x:Key="Channel_Status">状态</system:String>
+    <system:String x:Key="Channel_ConnInfo">连接信息</system:String>
+    <system:String x:Key="Channel_Force">强制</system:String>
+    <system:String x:Key="Channel_Export">导出</system:String>
+    <system:String x:Key="Channel_ConnQueueManager">队列管理器</system:String>
+    <system:String x:Key="Channel_ConnTransmissionQueue">传输队列</system:String>
+    <system:String x:Key="Channel_ConnSubstate">子状态</system:String>
+    <system:String x:Key="Channel_ConnIndoubtStatus">未定状态</system:String>
+    <system:String x:Key="Channel_ConnMessageCompression">消息压缩</system:String>
+    <system:String x:Key="Channel_ConnHeaderCompression">头部压缩</system:String>
+
+    <!-- Connections -->
+    <system:String x:Key="Connection_FilterPlaceholder">过滤（如 PAT*）</system:String>
+    <system:String x:Key="Connection_ExportCsv">导出 CSV</system:String>
+    <system:String x:Key="Connection_Export">导出</system:String>
+    <system:String x:Key="Connection_AppLabel">应用:</system:String>
+
+    <!-- Connection detail -->
+    <system:String x:Key="ConnectionDetail_Title">连接详情</system:String>
+    <system:String x:Key="ConnectionDetail_Channel">通道名称:</system:String>
+    <system:String x:Key="ConnectionDetail_Connection">连接:</system:String>
+    <system:String x:Key="ConnectionDetail_AppName">应用名称:</system:String>
+    <system:String x:Key="ConnectionDetail_UserId">用户 ID:</system:String>
+    <system:String x:Key="ConnectionDetail_Status">状态:</system:String>
+
+    <!-- Common -->
+    <system:String x:Key="Common_Refresh">刷新</system:String>
+    <system:String x:Key="Common_Filter">过滤（如 PAT*）</system:String>
+    <system:String x:Key="Common_Loading">加载中...</system:String>
+    <system:String x:Key="Common_Confirm">确认</system:String>
+    <system:String x:Key="Common_Cancel">取消</system:String>
+    <system:String x:Key="Common_Delete">删除</system:String>
+    <system:String x:Key="Common_Error">错误</system:String>
+    <system:String x:Key="Common_Success">成功</system:String>
+    <system:String x:Key="Common_NoSelection">未选择</system:String>
+    <system:String x:Key="Common_DeleteConfirm">确定要删除吗？</system:String>
+    <system:String x:Key="Common_PurgeConfirm">确定要清除此队列吗？</system:String>
+
+    <!-- Language -->
+    <system:String x:Key="Lang_En">English</system:String>
+    <system:String x:Key="Lang_Zh">中文</system:String>
+
+    <!-- Audit Log -->
+    <system:String x:Key="Tab_AuditLog">日志</system:String>
+    <system:String x:Key="AuditLog_Title">操作日志</system:String>
+    <system:String x:Key="AuditLog_Save">保存到文件</system:String>
+    <system:String x:Key="AuditLog_Clear">清除</system:String>
+    <system:String x:Key="AuditLog_ColTime">时间</system:String>
+    <system:String x:Key="AuditLog_ColCategory">类别</system:String>
+    <system:String x:Key="AuditLog_ColOperation">操作</system:String>
+    <system:String x:Key="AuditLog_ColTarget">目标</system:String>
+    <system:String x:Key="AuditLog_ColSuccess">成功</system:String>
+    <system:String x:Key="AuditLog_ColDetails">详情</system:String>
+
+</ResourceDictionary>

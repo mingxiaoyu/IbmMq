@@ -1,0 +1,165 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <!-- Login -->
+    <system:String x:Key="Login_Title">MQ Connection Manager</system:String>
+    <system:String x:Key="Login_ServerLabel">Server</system:String>
+    <system:String x:Key="Login_SelectServer">Select Server</system:String>
+    <system:String x:Key="Login_Connect">Connect</system:String>
+    <system:String x:Key="Login_Settings">Settings</system:String>
+    <system:String x:Key="Login_PleaseSelect">Please select a server</system:String>
+    <system:String x:Key="Login_Connecting">Connecting...</system:String>
+    <system:String x:Key="Login_ConnectedTo">Connected to {0}</system:String>
+    <system:String x:Key="Login_Status_Connected">Connected</system:String>
+    <system:String x:Key="Login_Status_Disconnected">Disconnected</system:String>
+    <system:String x:Key="Login_Status_Error">Connection Error</system:String>
+
+    <!-- Settings -->
+    <system:String x:Key="Settings_Title">Server Settings</system:String>
+    <system:String x:Key="Settings_Servers">Servers</system:String>
+    <system:String x:Key="Settings_New">New</system:String>
+    <system:String x:Key="Settings_Edit">Edit</system:String>
+    <system:String x:Key="Settings_Close">Close</system:String>
+    <system:String x:Key="Settings_SelectServer">Select a server or click New</system:String>
+    <system:String x:Key="Settings_ServerConfig">Server Configuration</system:String>
+    <system:String x:Key="Settings_Name">Name</system:String>
+    <system:String x:Key="Settings_Host">Host</system:String>
+    <system:String x:Key="Settings_Port">Port</system:String>
+    <system:String x:Key="Settings_Channel">Channel</system:String>
+    <system:String x:Key="Settings_QueueManager">Queue Manager</system:String>
+    <system:String x:Key="Settings_Username">Username</system:String>
+    <system:String x:Key="Settings_Password">Password</system:String>
+    <system:String x:Key="Settings_Save">Save</system:String>
+    <system:String x:Key="Settings_Cancel">Cancel</system:String>
+    <system:String x:Key="Settings_Delete">Delete</system:String>
+    <system:String x:Key="Settings_WM_ServerName">Server name</system:String>
+    <system:String x:Key="Settings_WM_Hostname">hostname or IP</system:String>
+    <system:String x:Key="Settings_WM_Port">1414</system:String>
+    <system:String x:Key="Settings_WM_Channel">Channel name</system:String>
+    <system:String x:Key="Settings_WM_QmName">QM name</system:String>
+    <system:String x:Key="Settings_WM_Optional">Optional</system:String>
+
+    <!-- Window -->
+    <system:String x:Key="Window_Title">IBM MQ Desktop Client</system:String>
+    <system:String x:Key="App_Title">IBM MQ Desktop Client</system:String>
+    <system:String x:Key="Window_Disconnect">Disconnect</system:String>
+
+    <!-- Tabs / Sidebar headers -->
+    <system:String x:Key="Tab_Queues">Queues</system:String>
+    <system:String x:Key="Tab_Channels">Channels</system:String>
+    <system:String x:Key="Tab_Connections">Connections</system:String>
+    <system:String x:Key="Sidebar_Queues">Queues</system:String>
+    <system:String x:Key="Sidebar_Channels">Channels</system:String>
+    <system:String x:Key="Sidebar_Connections">Connections</system:String>
+
+    <!-- Queues -->
+    <system:String x:Key="Queue_FilterPlaceholder">Filter (e.g. PAT*)</system:String>
+    <system:String x:Key="Queue_Refresh">Refresh</system:String>
+    <system:String x:Key="Queue_Create">Create Queue</system:String>
+    <system:String x:Key="Queue_Delete">Delete Queue</system:String>
+    <system:String x:Key="Queue_Depth">Depth</system:String>
+    <system:String x:Key="Queue_CountText">{0} queues (total {1})</system:String>
+    <system:String x:Key="Queue_Create_Title">Create New Queue</system:String>
+    <system:String x:Key="Queue_Create_Name">Queue Name</system:String>
+    <system:String x:Key="Queue_Create_Type">Queue Type</system:String>
+    <system:String x:Key="Queue_Create_TypeLocal">Local</system:String>
+    <system:String x:Key="Queue_Create_TypeRemote">Remote</system:String>
+
+    <!-- Messages -->
+    <system:String x:Key="Msg_Send">Send</system:String>
+    <system:String x:Key="Msg_Receive">Receive</system:String>
+    <system:String x:Key="Msg_Browse">Browse</system:String>
+    <system:String x:Key="Msg_Get">Get</system:String>
+    <system:String x:Key="Msg_ExportAll">Export All</system:String>
+    <system:String x:Key="Msg_ClearQueue">Clear Queue</system:String>
+    <system:String x:Key="Msg_Purge">Purge</system:String>
+    <system:String x:Key="Msg_ConsumeAll">Consume All</system:String>
+    <system:String x:Key="Msg_ModeSingle">Text Message</system:String>
+    <system:String x:Key="Msg_ModeFile">File</system:String>
+    <system:String x:Key="Msg_ModeFolder">Folder</system:String>
+    <system:String x:Key="Msg_EnterMessage">Enter message text...</system:String>
+    <system:String x:Key="Msg_SelectFile">Select File</system:String>
+    <system:String x:Key="Msg_SelectFolder">Select Folder</system:String>
+    <system:String x:Key="Msg_CountLabel">Count:</system:String>
+    <system:String x:Key="Msg_Depth">Depth</system:String>
+    <system:String x:Key="Msg_DepthPrefix">Depth: {0}</system:String>
+    <system:String x:Key="Msg_BrowseBtn">Browse...</system:String>
+    <system:String x:Key="Msg_IdLabel">ID:</system:String>
+    <system:String x:Key="Msg_CorrLabel">Corr:</system:String>
+    <system:String x:Key="Msg_CopyBody">Copy Body</system:String>
+
+    <!-- Channels -->
+    <system:String x:Key="Channel_FilterPlaceholder">Filter (e.g. PAT*)</system:String>
+    <system:String x:Key="Channel_Start">Start</system:String>
+    <system:String x:Key="Channel_Stop">Stop</system:String>
+    <system:String x:Key="Channel_Reset">Reset</system:String>
+    <system:String x:Key="Channel_ForceStart">Force Start</system:String>
+    <system:String x:Key="Channel_ForceStop">Force Stop</system:String>
+    <system:String x:Key="Channel_ForceReset">Force Reset</system:String>
+    <system:String x:Key="Channel_NameHeader">Name</system:String>
+    <system:String x:Key="Channel_StatusHeader">Status</system:String>
+    <system:String x:Key="Channel_TypeHeader">Type</system:String>
+    <system:String x:Key="Channel_ConnectionHeader">Connection Name</system:String>
+    <system:String x:Key="Channel_McaUserHeader">MCA User</system:String>
+    <system:String x:Key="Channel_McaNameHeader">MCA Name</system:String>
+    <system:String x:Key="Channel_BytesSent">Bytes Sent</system:String>
+    <system:String x:Key="Channel_BytesReceived">Bytes Received</system:String>
+    <system:String x:Key="Channel_Messages">Messages</system:String>
+    <system:String x:Key="Channel_BuffersSent">Buffers Sent</system:String>
+    <system:String x:Key="Channel_BuffersReceived">Buffers Received</system:String>
+    <system:String x:Key="Channel_Status">Status</system:String>
+    <system:String x:Key="Channel_ConnInfo">Connection Info</system:String>
+    <system:String x:Key="Channel_Force">Force</system:String>
+    <system:String x:Key="Channel_Export">Export</system:String>
+    <system:String x:Key="Channel_ConnQueueManager">Queue Manager</system:String>
+    <system:String x:Key="Channel_ConnTransmissionQueue">Transmission Queue</system:String>
+    <system:String x:Key="Channel_ConnSubstate">Substate</system:String>
+    <system:String x:Key="Channel_ConnIndoubtStatus">Indoubt Status</system:String>
+    <system:String x:Key="Channel_ConnMessageCompression">Message Compression</system:String>
+    <system:String x:Key="Channel_ConnHeaderCompression">Header Compression</system:String>
+
+    <!-- Connections -->
+    <system:String x:Key="Connection_FilterPlaceholder">Filter (e.g. PAT*)</system:String>
+    <system:String x:Key="Connection_ExportCsv">Export CSV</system:String>
+    <system:String x:Key="Connection_Export">Export</system:String>
+    <system:String x:Key="Connection_AppLabel">App:</system:String>
+
+    <!-- Connection detail -->
+    <system:String x:Key="ConnectionDetail_Title">Connection Details</system:String>
+    <system:String x:Key="ConnectionDetail_Channel">Channel Name:</system:String>
+    <system:String x:Key="ConnectionDetail_Connection">Connection:</system:String>
+    <system:String x:Key="ConnectionDetail_AppName">App Name:</system:String>
+    <system:String x:Key="ConnectionDetail_UserId">User ID:</system:String>
+    <system:String x:Key="ConnectionDetail_Status">Status:</system:String>
+
+    <!-- Common -->
+    <system:String x:Key="Common_Refresh">Refresh</system:String>
+    <system:String x:Key="Common_Filter">Filter (e.g. PAT*)</system:String>
+    <system:String x:Key="Common_Loading">Loading...</system:String>
+    <system:String x:Key="Common_Confirm">Confirm</system:String>
+    <system:String x:Key="Common_Cancel">Cancel</system:String>
+    <system:String x:Key="Common_Delete">Delete</system:String>
+    <system:String x:Key="Common_Error">Error</system:String>
+    <system:String x:Key="Common_Success">Success</system:String>
+    <system:String x:Key="Common_NoSelection">No selection</system:String>
+    <system:String x:Key="Common_DeleteConfirm">Are you sure you want to delete this?</system:String>
+    <system:String x:Key="Common_PurgeConfirm">Are you sure you want to purge this queue?</system:String>
+
+    <!-- Language -->
+    <system:String x:Key="Lang_En">English</system:String>
+    <system:String x:Key="Lang_Zh">中文</system:String>
+
+    <!-- Audit Log -->
+    <system:String x:Key="Tab_AuditLog">Log</system:String>
+    <system:String x:Key="AuditLog_Title">Audit Log</system:String>
+    <system:String x:Key="AuditLog_Save">Save to File</system:String>
+    <system:String x:Key="AuditLog_Clear">Clear</system:String>
+    <system:String x:Key="AuditLog_ColTime">Time</system:String>
+    <system:String x:Key="AuditLog_ColCategory">Category</system:String>
+    <system:String x:Key="AuditLog_ColOperation">Operation</system:String>
+    <system:String x:Key="AuditLog_ColTarget">Target</system:String>
+    <system:String x:Key="AuditLog_ColSuccess">OK</system:String>
+    <system:String x:Key="AuditLog_ColDetails">Details</system:String>
+
+</ResourceDictionary>

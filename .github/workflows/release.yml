@@ -1,0 +1,166 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  # ═══════════════════════════════════════════════════════════════════════════
+  # CLI — self-contained + framework-dependent
+  # ═══════════════════════════════════════════════════════════════════════════
+  cli:
+    name: cli / ${{ matrix.rid }} / ${{ matrix.mode }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        include:
+          # Windows
+          - { rid: win-x64,   os: windows-latest, mode: self-contained,       ext: zip }
+          - { rid: win-x64,   os: windows-latest, mode: framework-dependent,  ext: zip }
+          - { rid: win-arm64, os: windows-latest, mode: self-contained,       ext: zip }
+          - { rid: win-arm64, os: windows-latest, mode: framework-dependent,  ext: zip }
+          # Linux
+          - { rid: linux-x64,   os: ubuntu-latest, mode: self-contained,      ext: tar.gz }
+          - { rid: linux-x64,   os: ubuntu-latest, mode: framework-dependent, ext: tar.gz }
+          - { rid: linux-arm64, os: ubuntu-latest, mode: self-contained,      ext: tar.gz }
+          - { rid: linux-arm64, os: ubuntu-latest, mode: framework-dependent, ext: tar.gz }
+          # macOS
+          - { rid: osx-x64,   os: macos-latest, mode: self-contained,         ext: tar.gz }
+          - { rid: osx-x64,   os: macos-latest, mode: framework-dependent,    ext: tar.gz }
+          - { rid: osx-arm64, os: macos-latest, mode: self-contained,         ext: tar.gz }
+          - { rid: osx-arm64, os: macos-latest, mode: framework-dependent,    ext: tar.gz }
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Publish (self-contained)
+        if: matrix.mode == 'self-contained'
+        run: >
+          dotnet publish src/MqManager.Cli/MqManager.Cli.csproj
+          -c Release
+          -r ${{ matrix.rid }}
+          --self-contained true
+          -p:PublishSingleFile=true
+          -p:IncludeNativeLibrariesForSelfExtract=true
+          -p:EnableCompressionInSingleFile=true
+          -p:PublishTrimmed=true
+          -p:DebugType=none
+          -o publish/cli-out
+
+      - name: Publish (framework-dependent)
+        if: matrix.mode == 'framework-dependent'
+        run: >
+          dotnet publish src/MqManager.Cli/MqManager.Cli.csproj
+          -c Release
+          -r ${{ matrix.rid }}
+          --self-contained false
+          -p:PublishSingleFile=true
+          -p:DebugType=none
+          -o publish/cli-out
+
+      - name: Package (zip)
+        if: matrix.ext == 'zip'
+        shell: pwsh
+        run: Compress-Archive -Path publish/cli-out/* -DestinationPath mqmanager-cli-${{ matrix.rid }}-${{ matrix.mode }}.zip
+
+      - name: Package (tar.gz)
+        if: matrix.ext == 'tar.gz'
+        run: tar -czf mqmanager-cli-${{ matrix.rid }}-${{ matrix.mode }}.tar.gz -C publish/cli-out .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mqmanager-cli-${{ matrix.rid }}-${{ matrix.mode }}
+          path: mqmanager-cli-${{ matrix.rid }}-${{ matrix.mode }}.${{ matrix.ext }}
+          retention-days: 1
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # Desktop — self-contained only (always trimmed, always single-file)
+  # ═══════════════════════════════════════════════════════════════════════════
+  desktop:
+    name: desktop / ${{ matrix.rid }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        include:
+          # Windows
+          - { rid: win-x64,   os: windows-latest, ext: zip }
+          - { rid: win-arm64, os: windows-latest, ext: zip }
+          # Linux
+          - { rid: linux-x64,   os: ubuntu-latest, ext: tar.gz }
+          - { rid: linux-arm64, os: ubuntu-latest, ext: tar.gz }
+          # macOS
+          - { rid: osx-x64,   os: macos-latest, ext: tar.gz }
+          - { rid: osx-arm64, os: macos-latest, ext: tar.gz }
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Publish
+        run: >
+          dotnet publish src/MqManager.Desktop/MqManager.Desktop.csproj
+          -c Release
+          -r ${{ matrix.rid }}
+          --self-contained true
+          -p:PublishSingleFile=true
+          -p:IncludeNativeLibrariesForSelfExtract=true
+          -p:EnableCompressionInSingleFile=true
+          -p:PublishTrimmed=true
+          -p:TrimMode=partial
+          -p:DebugType=none
+          -o publish/desktop-out
+
+      - name: Package (zip)
+        if: matrix.ext == 'zip'
+        shell: pwsh
+        run: Compress-Archive -Path publish/desktop-out/* -DestinationPath mqmanager-desktop-${{ matrix.rid }}.zip
+
+      - name: Package (tar.gz)
+        if: matrix.ext == 'tar.gz'
+        run: tar -czf mqmanager-desktop-${{ matrix.rid }}.tar.gz -C publish/desktop-out .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mqmanager-desktop-${{ matrix.rid }}
+          path: mqmanager-desktop-${{ matrix.rid }}.${{ matrix.ext }}
+          retention-days: 1
+
+  # ═══════════════════════════════════════════════════════════════════════════
+  # Create GitHub Release with all artifacts
+  # ═══════════════════════════════════════════════════════════════════════════
+  release:
+    name: Create GitHub Release
+    needs: [cli, desktop]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: artifacts/**

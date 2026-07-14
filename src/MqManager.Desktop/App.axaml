@@ -1,0 +1,58 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:semi="https://irihi.tech/semi"
+             x:Class="MqManager.Desktop.App">
+    <Application.Styles>
+        <semi:SemiTheme Locale="zh-CN" />
+        <StyleInclude Source="avares://Semi.Avalonia.DataGrid/Index.axaml" />
+        <Style Selector="Border.card">
+            <Setter Property="BoxShadow" Value="0 2 8 0 #20000000"/>
+            <Setter Property="CornerRadius" Value="12"/>
+        </Style>
+    </Application.Styles>
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://MqManagerDesktop/i18n/Strings.axaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="AppConsoleBgBrush" Color="#263238"/>
+                    <SolidColorBrush x:Key="AppConsoleFgBrush" Color="#A5D6A7"/>
+                    <SolidColorBrush x:Key="AppConsoleBorderBrush" Color="#37474F"/>
+                    <SolidColorBrush x:Key="AppHeaderBgBrush" Color="#1976D2"/>
+                    <SolidColorBrush x:Key="AppTabBarBgBrush" Color="#1565C0"/>
+                    <SolidColorBrush x:Key="AppSidebarBgBrush" Color="#F8F9FA"/>
+                    <SolidColorBrush x:Key="AppSidebarBorderBrush" Color="#E0E0E0"/>
+                    <SolidColorBrush x:Key="AppContentBgBrush" Color="#FFFFFF"/>
+                    <SolidColorBrush x:Key="AppBorderBrush" Color="#E0E0E0"/>
+                    <SolidColorBrush x:Key="AppSuccessBgBrush" Color="#E8F5E9"/>
+                    <SolidColorBrush x:Key="AppSuccessFgBrush" Color="#388E3C"/>
+                    <SolidColorBrush x:Key="AppSecondaryTextBrush" Color="#666666"/>
+                    <SolidColorBrush x:Key="AppPrimaryTextBrush" Color="#212121"/>
+                    <SolidColorBrush x:Key="AppDepthBadgeBgBrush" Color="#E3F2FD"/>
+                    <SolidColorBrush x:Key="AppDepthBadgeFgBrush" Color="#1976D2"/>
+                    <SolidColorBrush x:Key="AppSectionHeaderBgBrush" Color="#F5F5F5"/>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="AppConsoleBgBrush" Color="#0D1117"/>
+                    <SolidColorBrush x:Key="AppConsoleFgBrush" Color="#7EE787"/>
+                    <SolidColorBrush x:Key="AppConsoleBorderBrush" Color="#21262D"/>
+                    <SolidColorBrush x:Key="AppHeaderBgBrush" Color="#1565C0"/>
+                    <SolidColorBrush x:Key="AppTabBarBgBrush" Color="#0D47A1"/>
+                    <SolidColorBrush x:Key="AppSidebarBgBrush" Color="#1E1E2E"/>
+                    <SolidColorBrush x:Key="AppSidebarBorderBrush" Color="#2D2D3F"/>
+                    <SolidColorBrush x:Key="AppContentBgBrush" Color="#252535"/>
+                    <SolidColorBrush x:Key="AppBorderBrush" Color="#3D3D4F"/>
+                    <SolidColorBrush x:Key="AppSuccessBgBrush" Color="#1A3A2A"/>
+                    <SolidColorBrush x:Key="AppSuccessFgBrush" Color="#7EE787"/>
+                    <SolidColorBrush x:Key="AppSecondaryTextBrush" Color="#9CA3AF"/>
+                    <SolidColorBrush x:Key="AppPrimaryTextBrush" Color="#E8E8E8"/>
+                    <SolidColorBrush x:Key="AppDepthBadgeBgBrush" Color="#1E3A5F"/>
+                    <SolidColorBrush x:Key="AppDepthBadgeFgBrush" Color="#90CAF9"/>
+                    <SolidColorBrush x:Key="AppSectionHeaderBgBrush" Color="#2A2A3A"/>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

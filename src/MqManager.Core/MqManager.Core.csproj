@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <!-- Prevent trimmer from removing IBM MQ assemblies that rely on reflection -->
+  <ItemGroup>
+    <TrimmerRootAssembly Include="amqmdnetstd" />
+    <TrimmerRootAssembly Include="amqmxmsstd" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IBMXMSDotnetClient" Version="9.4.5.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.0" />
+  </ItemGroup>
+
+</Project>

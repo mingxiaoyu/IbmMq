@@ -1,0 +1,81 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MqManager.Desktop.ViewModels"
+             xmlns:models="using:MqManager.Desktop.Models"
+             xmlns:coremodels="using:MqManager.Core.Models"
+             x:Class="MqManager.Desktop.Views.ChannelListView"
+             x:DataType="vm:ChannelListViewModel">
+
+    <DockPanel>
+        <!-- Header with filter and refresh -->
+        <StackPanel DockPanel.Dock="Top" Spacing="8" Margin="12,12,12,8">
+            <TextBox Text="{Binding Filter}"
+                     Watermark="{Binding FilterPlaceholder}"
+                     MinHeight="36"
+                     FontSize="13" />
+            <Button Content="{Binding RefreshText}"
+                    Command="{Binding LoadChannelsCommand}"
+                    HorizontalAlignment="Left"
+                    Height="32"
+                    MinWidth="80"
+                    FontSize="13" />
+        </StackPanel>
+
+        <!-- Loading indicator -->
+        <ProgressBar DockPanel.Dock="Top"
+                     IsIndeterminate="True"
+                     IsVisible="{Binding IsLoading}"
+                     Height="3"
+                     Margin="0" />
+
+        <!-- Error message -->
+        <TextBlock DockPanel.Dock="Bottom"
+                   Text="{Binding ErrorMessage}"
+                   Foreground="#D32F2F"
+                   TextWrapping="Wrap"
+                   Margin="12,0,12,4"
+                   FontSize="12"
+                   IsVisible="{Binding HasError}" />
+
+        <!-- Channel list (last child — fills remaining space) -->
+        <ListBox ItemsSource="{Binding Channels}"
+                 SelectedItem="{Binding SelectedChannel}"
+                 Margin="0,0"
+                 MinHeight="100"
+                 Background="Transparent">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="coremodels:ChannelInfo">
+                    <Border Padding="12,8"
+                            BorderBrush="{DynamicResource AppBorderBrush}"
+                            BorderThickness="0,0,0,1"
+                            Background="Transparent">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Name}"
+                                           FontWeight="SemiBold"
+                                           FontSize="14"
+                                           Foreground="{DynamicResource AppPrimaryTextBrush}" />
+                                <TextBlock Text="{Binding Description}"
+                                           FontSize="12"
+                                           Foreground="{DynamicResource AppSecondaryTextBrush}"
+                                           Margin="0,2,0,0"
+                                           TextTrimming="CharacterEllipsis" />
+                            </StackPanel>
+                            <Border Grid.Column="1"
+                                    Background="{DynamicResource AppDepthBadgeBgBrush}"
+                                    CornerRadius="4"
+                                    Padding="8,3"
+                                    VerticalAlignment="Center"
+                                    Margin="8,0,0,0">
+                                <TextBlock Text="{Binding Type}"
+                                           FontSize="12"
+                                           Foreground="{DynamicResource AppDepthBadgeFgBrush}"
+                                           FontWeight="SemiBold" />
+                            </Border>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
+</UserControl>

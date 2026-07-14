@@ -1,0 +1,58 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+.mimocode/
+
+# Build outputs
+bin/
+obj/
+**/bin/
+**/obj/
+build/
+publish/
+publish-desktop/
+artifacts/
+
+# NuGet
+*.nupkg
+packages/
+.nuget/
+
+# Rider
+.idea/
+
+# Test results
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Runtime files
+*.deps.json
+*.runtimeconfig.json
+
+# Misc
+*.vsix
+*.lscache
+tmp/
+
+# claude
+.claude/skills/
+CLAUDE.local.md
+
+# MiMo agent artifacts
+docs/compose/
+

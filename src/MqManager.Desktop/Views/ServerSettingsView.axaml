@@ -1,0 +1,150 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MqManager.Desktop.ViewModels"
+        xmlns:models="using:MqManager.Desktop.Models"
+        x:Class="MqManager.Desktop.Views.ServerSettingsView"
+        x:DataType="vm:ServerSettingsViewModel"
+        Title="{Binding Title}"
+        Width="700"
+        Height="500"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False">
+
+    <Grid ColumnDefinitions="200,*">
+        <!-- Left panel: server list -->
+        <Border Grid.Column="0"
+                Background="#F5F5F5"
+                BorderBrush="#E0E0E0"
+                BorderThickness="0,0,1,0"
+                Padding="12">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Top"
+                           Text="{Binding ServersLabel}"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Margin="0,0,0,12" />
+
+                <ListBox DockPanel.Dock="Top"
+                         ItemsSource="{Binding Servers}"
+                         SelectedItem="{Binding SelectedServer}"
+                         MinHeight="300">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="models:ServerConfig">
+                            <TextBlock Text="{Binding Name}" Padding="8,6" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <StackPanel DockPanel.Dock="Bottom"
+                            Spacing="8"
+                            Margin="0,12,0,0">
+                    <Button Content="{Binding NewText}"
+                            Command="{Binding NewServerCommand}"
+                            HorizontalAlignment="Stretch"
+                            Height="32" />
+                    <Button Content="{Binding EditText}"
+                            Command="{Binding EditServerCommand}"
+                            HorizontalAlignment="Stretch"
+                            Height="32"
+                            IsEnabled="{Binding SelectedServer}" />
+                    <Button Content="{Binding DeleteText}"
+                            Command="{Binding DeleteServerCommand}"
+                            HorizontalAlignment="Stretch"
+                            Height="32"
+                            IsEnabled="{Binding SelectedServer}"
+                            Foreground="#D32F2F" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- Right panel: edit form -->
+        <Border Grid.Column="1" Padding="20">
+            <Panel>
+                <!-- Empty state -->
+                <TextBlock Text="{Binding SelectServerText}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Foreground="#999999"
+                           IsVisible="{Binding !IsEditing}" />
+
+                <!-- Edit form -->
+                <ScrollViewer IsVisible="{Binding IsEditing}">
+                    <StackPanel Spacing="12" MaxWidth="400">
+                        <TextBlock Text="{Binding ServerConfigText}"
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   Margin="0,0,0,8" />
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="{Binding NameLabel}" />
+                            <TextBox Text="{Binding EditingConfig.Name}"
+                                     Watermark="{Binding ServerNameWatermark}" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="{Binding HostLabel}" />
+                            <TextBox Text="{Binding EditingConfig.Host}"
+                                     Watermark="{Binding HostnameWatermark}" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="{Binding PortLabel}" />
+                            <TextBox Text="{Binding EditingConfig.Port}"
+                                     Watermark="{Binding PortWatermark}" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="{Binding ChannelLabel}" />
+                            <TextBox Text="{Binding EditingConfig.Channel}"
+                                     Watermark="{Binding ChannelWatermark}" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="{Binding QueueManagerLabel}" />
+                            <TextBox Text="{Binding EditingConfig.QueueManager}"
+                                     Watermark="{Binding QmNameWatermark}" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="{Binding UsernameLabel}" />
+                            <TextBox Text="{Binding EditingConfig.Username}"
+                                     Watermark="{Binding OptionalWatermark}" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="{Binding PasswordLabel}" />
+                            <TextBox Text="{Binding EditingConfig.Password}"
+                                     Watermark="{Binding OptionalWatermark}"
+                                     PasswordChar="*" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="12"
+                                    Margin="0,12,0,0">
+                            <Button Content="{Binding SaveText}"
+                                    Command="{Binding SaveServerCommand}"
+                                    Background="#388E3C"
+                                    Foreground="White"
+                                    Width="100"
+                                    Height="36" />
+                            <Button Content="{Binding CancelText}"
+                                    Command="{Binding CancelEditCommand}"
+                                    Width="100"
+                                    Height="36" />
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Panel>
+        </Border>
+
+        <!-- Close button -->
+        <Button Grid.Column="1"
+                Content="{Binding CloseText}"
+                Command="{Binding CloseCommand}"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="20"
+                Width="80"
+                Height="32" />
+    </Grid>
+</Window>

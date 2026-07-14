@@ -1,0 +1,225 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:MqManager.Desktop.ViewModels"
+             xmlns:models="using:MqManager.Desktop.Models"
+             xmlns:coremodels="using:MqManager.Core.Models"
+             x:Class="MqManager.Desktop.Views.ChannelStatusView"
+             x:DataType="vm:ChannelStatusViewModel"
+             x:Name="Root">
+
+    <DockPanel>
+        <!-- Action buttons -->
+        <StackPanel DockPanel.Dock="Top"
+                    Orientation="Horizontal"
+                    Spacing="8"
+                    Margin="16,12">
+            <Button Content="{Binding RefreshText}"
+                    Command="{Binding RefreshCommand}"
+                    Height="32" />
+            <Button Content="{Binding StartText}"
+                    Command="{Binding StartChannelCommand}"
+                    Background="#388E3C"
+                    Foreground="White"
+                    Height="32" />
+            <Button Content="{Binding StopText}"
+                    Command="{Binding StopChannelCommand}"
+                    Foreground="#D32F2F"
+                    Height="32" />
+            <Button Content="{Binding ResetText}"
+                    Command="{Binding ResetChannelCommand}"
+                    Foreground="#F57C00"
+                    Height="32" />
+
+            <!-- Force checkboxes -->
+            <CheckBox Content="{Binding ForceStopText}"
+                      IsChecked="{Binding IsForceStop}"
+                      VerticalAlignment="Center"
+                      Margin="16,0,0,0" />
+            <CheckBox Content="{Binding ForceResetText}"
+                      IsChecked="{Binding IsForceReset}"
+                      VerticalAlignment="Center" />
+        </StackPanel>
+
+        <!-- Result text -->
+        <Border DockPanel.Dock="Top"
+                BorderBrush="{DynamicResource AppBorderBrush}"
+                BorderThickness="0,0,0,1"
+                Padding="16,8">
+            <TextBlock Text="{Binding ResultText}"
+                       FontSize="13"
+                       Foreground="{DynamicResource AppSecondaryTextBrush}" />
+        </Border>
+
+        <!-- Body: Grid so loading overlay can properly cover TabControl -->
+        <Grid>
+            <!-- Tabs: Status / Connection Info -->
+            <TabControl SelectedIndex="{Binding ActiveTabIndex}"
+                        Margin="16,8">
+                <TabControl.Styles>
+                    <Style Selector="TabItem">
+                        <Setter Property="FontSize" Value="13" />
+                        <Setter Property="FontWeight" Value="SemiBold" />
+                        <Setter Property="Padding" Value="16,8" />
+                    </Style>
+                </TabControl.Styles>
+
+                <!-- Status Tab -->
+                <TabItem Header="{Binding StatusTabText}">
+                    <ScrollViewer>
+                        <Border Margin="0,4" Padding="20"
+                                BorderBrush="{DynamicResource AppBorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="8">
+                            <StackPanel Spacing="12">
+                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                    <TextBlock Grid.Column="0" Text="{Binding NameLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                    <TextBlock Grid.Column="1" Text="{Binding StatusName}" VerticalAlignment="Center" />
+                                </Grid>
+                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                    <TextBlock Grid.Column="0" Text="{Binding TypeLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                    <TextBlock Grid.Column="1" Text="{Binding StatusType}" VerticalAlignment="Center" />
+                                </Grid>
+                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                    <TextBlock Grid.Column="0" Text="{Binding StatusLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                    <Border Grid.Column="1" Background="{DynamicResource AppSuccessBgBrush}" CornerRadius="8" Padding="12,4" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding StatusStatus}" Foreground="{DynamicResource AppSuccessFgBrush}" FontWeight="SemiBold" />
+                                    </Border>
+                                </Grid>
+                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                    <TextBlock Grid.Column="0" Text="{Binding ConnectionNameLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                    <TextBlock Grid.Column="1" Text="{Binding StatusConnectionName}" VerticalAlignment="Center" />
+                                </Grid>
+                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                    <TextBlock Grid.Column="0" Text="{Binding BytesSentLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                    <TextBlock Grid.Column="1" Text="{Binding StatusBytesSent}" VerticalAlignment="Center" />
+                                </Grid>
+                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                    <TextBlock Grid.Column="0" Text="{Binding BytesReceivedLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                    <TextBlock Grid.Column="1" Text="{Binding StatusBytesReceived}" VerticalAlignment="Center" />
+                                </Grid>
+                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                    <TextBlock Grid.Column="0" Text="{Binding MessagesLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                    <TextBlock Grid.Column="1" Text="{Binding StatusMessages}" VerticalAlignment="Center" />
+                                </Grid>
+                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                    <TextBlock Grid.Column="0" Text="{Binding BuffersSentLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                    <TextBlock Grid.Column="1" Text="{Binding StatusBuffersSent}" VerticalAlignment="Center" />
+                                </Grid>
+                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                    <TextBlock Grid.Column="0" Text="{Binding BuffersReceivedLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                    <TextBlock Grid.Column="1" Text="{Binding StatusBuffersReceived}" VerticalAlignment="Center" />
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </ScrollViewer>
+                </TabItem>
+
+                <!-- Connection Info Tab -->
+                <TabItem Header="{Binding ConnInfoTabText}">
+                    <ScrollViewer>
+                        <StackPanel Margin="0,4" Spacing="12">
+                            <ItemsControl ItemsSource="{Binding ConnInfos}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="coremodels:ChannelConnectionInfo">
+                                        <Border Padding="20,16"
+                                                BorderBrush="{DynamicResource AppBorderBrush}"
+                                                BorderThickness="1"
+                                                CornerRadius="8"
+                                                Margin="0,0,0,8">
+                                            <StackPanel Spacing="10">
+                                                <!-- Name -->
+                                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                                    <TextBlock Grid.Column="0" Text="{Binding #Root.DataContext.NameLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                                    <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center" />
+                                                </Grid>
+                                                <!-- Type -->
+                                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                                    <TextBlock Grid.Column="0" Text="{Binding #Root.DataContext.TypeLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                                    <TextBlock Grid.Column="1" Text="{Binding Type}" VerticalAlignment="Center" />
+                                                </Grid>
+                                                <!-- Status -->
+                                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                                    <TextBlock Grid.Column="0" Text="{Binding #Root.DataContext.StatusLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                                    <Border Grid.Column="1" Background="{DynamicResource AppSuccessBgBrush}" CornerRadius="8" Padding="12,4" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                        <TextBlock Text="{Binding Status}" Foreground="{DynamicResource AppSuccessFgBrush}" FontWeight="SemiBold" />
+                                                    </Border>
+                                                </Grid>
+                                                <!-- Connection Name -->
+                                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                                    <TextBlock Grid.Column="0" Text="{Binding #Root.DataContext.ConnectionNameLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                                    <TextBlock Grid.Column="1" Text="{Binding ConnectionName}" VerticalAlignment="Center" />
+                                                </Grid>
+                                                <!-- Queue Manager -->
+                                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                                    <TextBlock Grid.Column="0" Text="{Binding #Root.DataContext.ConnQueueManagerLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                                    <TextBlock Grid.Column="1" Text="{Binding QueueManagerName}" VerticalAlignment="Center" />
+                                                </Grid>
+                                                <!-- Transmission Queue -->
+                                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                                    <TextBlock Grid.Column="0" Text="{Binding #Root.DataContext.ConnTransmissionQueueLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                                    <TextBlock Grid.Column="1" Text="{Binding TransmissionQueue}" VerticalAlignment="Center" />
+                                                </Grid>
+                                                <!-- Messages -->
+                                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                                    <TextBlock Grid.Column="0" Text="{Binding #Root.DataContext.MessagesLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                                    <TextBlock Grid.Column="1" Text="{Binding Messages}" VerticalAlignment="Center" />
+                                                </Grid>
+                                                <!-- Substate -->
+                                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                                    <TextBlock Grid.Column="0" Text="{Binding #Root.DataContext.ConnSubstateLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                                    <TextBlock Grid.Column="1" Text="{Binding Substate}" VerticalAlignment="Center" />
+                                                </Grid>
+                                                <!-- Indoubt Status -->
+                                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                                    <TextBlock Grid.Column="0" Text="{Binding #Root.DataContext.ConnIndoubtStatusLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                                    <TextBlock Grid.Column="1" Text="{Binding IndoubtStatus}" VerticalAlignment="Center" />
+                                                </Grid>
+                                                <!-- Message Compression -->
+                                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                                    <TextBlock Grid.Column="0" Text="{Binding #Root.DataContext.ConnMessageCompressionLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                                    <TextBlock Grid.Column="1" Text="{Binding MessageCompression}" VerticalAlignment="Center" />
+                                                </Grid>
+                                                <!-- Header Compression -->
+                                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                                    <TextBlock Grid.Column="0" Text="{Binding #Root.DataContext.ConnHeaderCompressionLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                                    <TextBlock Grid.Column="1" Text="{Binding HeaderCompression}" VerticalAlignment="Center" />
+                                                </Grid>
+                                                <!-- MCA User ID -->
+                                                <Grid ColumnDefinitions="140,*" RowDefinitions="Auto">
+                                                    <TextBlock Grid.Column="0" Text="{Binding #Root.DataContext.ConnMcaUserIdLabel}" FontWeight="SemiBold" Foreground="{DynamicResource AppSecondaryTextBrush}" VerticalAlignment="Center" />
+                                                    <TextBlock Grid.Column="1" Text="{Binding McaUserId}" VerticalAlignment="Center" />
+                                                </Grid>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
+
+            <!-- Loading overlay — Grid sibling so it truly covers the full content area -->
+            <Border IsVisible="{Binding IsLoading}"
+                    Background="#60000000"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                <Border Background="{DynamicResource AppContentBgBrush}"
+                        CornerRadius="12"
+                        Padding="32,24"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        BoxShadow="0 4 24 0 #40000000">
+                    <StackPanel Spacing="16" HorizontalAlignment="Center">
+                        <ProgressBar IsIndeterminate="True"
+                                     Width="200"
+                                     Height="4" />
+                        <TextBlock Text="{Binding LoadingText}"
+                                   HorizontalAlignment="Center"
+                                   FontSize="14" />
+                    </StackPanel>
+                </Border>
+            </Border>
+        </Grid>
+    </DockPanel>
+</UserControl>

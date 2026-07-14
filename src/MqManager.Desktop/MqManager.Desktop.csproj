@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>MqManagerDesktop</AssemblyName>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <PublishTrimmed>true</PublishTrimmed>
+    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+    <TrimMode>partial</TrimMode>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <RuntimeIdentifiers>win-x64;linux-x64;osx-x64</RuntimeIdentifiers>
+    <NoWarn>$(NoWarn);IL2104</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MqManager.Core\MqManager.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Avalonia 11.3.7 for Semi.Avalonia 11.3.7 compatibility -->
+    <PackageReference Include="Avalonia" Version="11.3.7" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.3.7" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.7" />
+    <!-- Semi.Avalonia replaces Avalonia.Themes.Fluent and Avalonia.Controls.DataGrid -->
+    <PackageReference Include="Semi.Avalonia" Version="11.3.7" />
+    <PackageReference Include="Semi.Avalonia.DataGrid" Version="11.3.7" />
+    <!-- Ursa 1.x for Avalonia 11.x (Toast, Dialog, etc.) -->
+    <PackageReference Include="Irihi.Ursa" Version="1.15.1" />
+    <PackageReference Include="Irihi.Ursa.Themes.Semi" Version="1.15.1" />
+    <!-- Other dependencies -->
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Preserve reflection-heavy assemblies from trimming -->
+    <TrimmerRootAssembly Include="Avalonia" />
+    <TrimmerRootAssembly Include="Avalonia.Desktop" />
+    <TrimmerRootAssembly Include="Semi.Avalonia" />
+    <TrimmerRootAssembly Include="Semi.Avalonia.DataGrid" />
+    <!-- Ursa assembly names differ from NuGet package names -->
+    <TrimmerRootAssembly Include="Ursa" />
+    <TrimmerRootAssembly Include="Ursa.Themes.Semi" />
+  </ItemGroup>
+
+</Project>
