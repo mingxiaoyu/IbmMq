@@ -31,6 +31,7 @@
         <DataGrid ItemsSource="{Binding Entries}"
                   AutoGenerateColumns="False"
                   CanUserSortColumns="True"
+                  CanUserResizeColumns="True"
                   IsReadOnly="True"
                   GridLinesVisibility="Horizontal"
                   Margin="0">
