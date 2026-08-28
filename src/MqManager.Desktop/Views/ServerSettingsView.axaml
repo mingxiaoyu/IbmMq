@@ -14,8 +14,8 @@
 
         <!-- ── Left panel: server list ─────────────────────────────────────── -->
         <Border Grid.Column="0"
-                Background="#F5F5F5"
-                BorderBrush="#E0E0E0"
+                Background="{DynamicResource AppSidebarBgBrush}"
+                BorderBrush="{DynamicResource AppSidebarBorderBrush}"
                 BorderThickness="0,0,1,0"
                 Padding="12">
             <DockPanel>
@@ -66,7 +66,7 @@
 
             <!-- General settings — pinned above Close button -->
             <Border DockPanel.Dock="Bottom"
-                    BorderBrush="#E0E0E0" BorderThickness="0,1,0,0"
+                    BorderBrush="{DynamicResource AppBorderBrush}" BorderThickness="0,1,0,0"
                     Padding="20,12,20,0">
                 <StackPanel Spacing="8">
                     <TextBlock Text="{Binding GeneralSectionText}"
@@ -74,7 +74,7 @@
                     <StackPanel Spacing="4">
                         <TextBlock Text="{Binding CloseBehaviorLabel}"
                                    FontSize="12"
-                                   Foreground="#555555" />
+                                   Foreground="{DynamicResource AppSecondaryTextBrush}" />
                         <ComboBox ItemsSource="{Binding CloseBehaviorOptions}"
                                   SelectedIndex="{Binding CloseBehaviorIndex}"
                                   Width="220"
@@ -90,7 +90,7 @@
                     <TextBlock Text="{Binding SelectServerText}"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
-                               Foreground="#999999"
+                               Foreground="{DynamicResource AppSecondaryTextBrush}"
                                IsVisible="{Binding !IsEditing}" />
 
                     <!-- Edit form -->
