@@ -106,8 +106,8 @@ public partial class MainWindowViewModel : ViewModelBase
         var mqService = new MqService();
         _prefs = new PreferencesRepository(appDbContext);
 
-        LoginVm = new LoginViewModel(configRepo, mqService);
-        SettingsVm = new ServerSettingsViewModel(configRepo);
+        LoginVm    = new LoginViewModel(configRepo, mqService);
+        SettingsVm = new ServerSettingsViewModel(configRepo, _prefs);
         QueueListVm = new QueueListViewModel(mqService, cacheRepo);
         QueueActionsVm = new QueueActionsViewModel(mqService);
         MessagePanelVm = new MessagePanelViewModel(mqService);

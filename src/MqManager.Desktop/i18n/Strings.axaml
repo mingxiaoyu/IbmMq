@@ -150,6 +150,26 @@
     <system:String x:Key="Lang_En">English</system:String>
     <system:String x:Key="Lang_Zh">中文</system:String>
 
+    <!-- Tray icon menu -->
+    <system:String x:Key="Tray_Show">Show Window</system:String>
+    <system:String x:Key="Tray_Exit">Exit</system:String>
+
+    <!-- General settings section -->
+    <system:String x:Key="Settings_GeneralSection">General</system:String>
+    <system:String x:Key="Settings_CloseBehaviorLabel">Close Button Behavior</system:String>
+    <system:String x:Key="Settings_Close_Ask">Always ask</system:String>
+    <system:String x:Key="Settings_Close_Minimize">Minimize to system tray</system:String>
+    <system:String x:Key="Settings_Close_Exit">Exit application</system:String>
+
+    <!-- Close-action dialog -->
+    <system:String x:Key="CloseDialog_Title">Close</system:String>
+    <system:String x:Key="CloseDialog_Question">What would you like to do?</system:String>
+    <system:String x:Key="CloseDialog_Minimize">Minimize to system tray</system:String>
+    <system:String x:Key="CloseDialog_Exit">Exit application</system:String>
+    <system:String x:Key="CloseDialog_Remember">Remember my choice</system:String>
+    <system:String x:Key="CloseDialog_OK">OK</system:String>
+    <system:String x:Key="CloseDialog_Cancel">Cancel</system:String>
+
     <!-- Audit Log -->
     <system:String x:Key="Tab_AuditLog">Log</system:String>
     <system:String x:Key="AuditLog_Title">Audit Log</system:String>

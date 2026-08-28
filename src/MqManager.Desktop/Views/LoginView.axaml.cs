@@ -18,8 +18,10 @@ public partial class LoginView : UserControl
         var vm = DataContext as LoginViewModel;
         if (vm == null) return;
 
-        var window = new ServerSettingsView();
-        var settingsVm = new ServerSettingsViewModel(vm.ConfigRepo);
+        var window     = new ServerSettingsView();
+        var prefs      = new MqManager.Desktop.Data.PreferencesRepository(
+                             new MqManager.Desktop.Data.AppDbContext());
+        var settingsVm = new ServerSettingsViewModel(vm.ConfigRepo, prefs);
         settingsVm.ServerSaved += () =>
         {
             vm.LoadServers();
@@ -30,8 +32,6 @@ public partial class LoginView : UserControl
 
         var parentWindow = TopLevel.GetTopLevel(this) as Window;
         if (parentWindow != null)
-        {
             await window.ShowDialog(parentWindow);
-        }
     }
 }

@@ -150,6 +150,26 @@
     <system:String x:Key="Lang_En">English</system:String>
     <system:String x:Key="Lang_Zh">中文</system:String>
 
+    <!-- Tray icon menu -->
+    <system:String x:Key="Tray_Show">显示窗口</system:String>
+    <system:String x:Key="Tray_Exit">退出</system:String>
+
+    <!-- General settings section -->
+    <system:String x:Key="Settings_GeneralSection">通用</system:String>
+    <system:String x:Key="Settings_CloseBehaviorLabel">关闭按钮行为</system:String>
+    <system:String x:Key="Settings_Close_Ask">每次询问</system:String>
+    <system:String x:Key="Settings_Close_Minimize">最小化到系统托盘</system:String>
+    <system:String x:Key="Settings_Close_Exit">退出程序</system:String>
+
+    <!-- Close-action dialog -->
+    <system:String x:Key="CloseDialog_Title">关闭</system:String>
+    <system:String x:Key="CloseDialog_Question">请选择关闭方式</system:String>
+    <system:String x:Key="CloseDialog_Minimize">最小化到系统托盘</system:String>
+    <system:String x:Key="CloseDialog_Exit">退出程序</system:String>
+    <system:String x:Key="CloseDialog_Remember">记住我的选择</system:String>
+    <system:String x:Key="CloseDialog_OK">确定</system:String>
+    <system:String x:Key="CloseDialog_Cancel">取消</system:String>
+
     <!-- Audit Log -->
     <system:String x:Key="Tab_AuditLog">日志</system:String>
     <system:String x:Key="AuditLog_Title">操作日志</system:String>

@@ -10,6 +10,8 @@
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
     <RuntimeIdentifiers>win-x64;linux-x64;osx-x64</RuntimeIdentifiers>
     <NoWarn>$(NoWarn);IL2104</NoWarn>
+    <!-- Windows .exe icon (ICO embedded into PE header) -->
+    <ApplicationIcon>Assets\app-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\MqManager.Core\MqManager.Core.csproj" />
@@ -38,6 +40,12 @@
     <!-- Ursa assembly names differ from NuGet package names -->
     <TrimmerRootAssembly Include="Ursa" />
     <TrimmerRootAssembly Include="Ursa.Themes.Semi" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- App icons embedded as Avalonia resources (accessible via avares://) -->
+    <AvaloniaResource Include="Assets\app-icon.ico" />
+    <AvaloniaResource Include="Assets\app-tray.ico" />
+    <AvaloniaResource Include="Assets\app-icon.png" />
   </ItemGroup>
 
 </Project>

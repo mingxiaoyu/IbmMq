@@ -16,6 +16,12 @@ namespace MqManager.Desktop;
 public class App : Application
 {
     private PreferencesRepository? _prefs;
+    private TrayIcon?               _trayIcon;
+    private NativeMenuItem?         _trayShowItem;
+    private NativeMenuItem?         _trayExitItem;
+    // True only when the user picks "Exit" from the tray menu (or OS shutdown).
+    // Keeps the Closing handler from eating the event on a real quit.
+    private bool _isRealExit;
 
     [UnconditionalSuppressMessage("Trimming", "IL2026", Justification = "Compiled AXAML")]
     public override void Initialize()
@@ -46,12 +52,109 @@ public class App : Application
             {
                 DataContext = new MainWindowViewModel()
             };
+
+            SetupTrayIcon(desktop);
         }
 
         base.OnFrameworkInitializationCompleted();
     }
 
-    [UnconditionalSuppressMessage("Trimming", "IL2026", Justification = "Runtime ResourceInclude for i18n language switching; Avalonia AXAML resources are trimming-safe")]
+    // ── System-tray setup ────────────────────────────────────────────────────
+
+    private void SetupTrayIcon(IClassicDesktopStyleApplicationLifetime desktop)
+    {
+        using var iconStream = AssetLoader.Open(
+            new Uri("avares://MqManagerDesktop/Assets/app-tray.ico"));
+        var windowIcon = new WindowIcon(iconStream);
+
+        _trayShowItem = new NativeMenuItem(Strings.Get("Tray_Show"));
+        _trayShowItem.Click += (_, _) => ShowMainWindow(desktop);
+
+        _trayExitItem = new NativeMenuItem(Strings.Get("Tray_Exit"));
+        _trayExitItem.Click += (_, _) =>
+        {
+            _isRealExit = true;
+            desktop.Shutdown();
+        };
+
+        var menu = new NativeMenu();
+        menu.Items.Add(_trayShowItem);
+        menu.Items.Add(new NativeMenuItemSeparator());
+        menu.Items.Add(_trayExitItem);
+
+        _trayIcon = new TrayIcon
+        {
+            Icon        = windowIcon,
+            ToolTipText = Strings.Get("App_Title"),
+            Menu        = menu,
+            IsVisible   = true,
+        };
+        _trayIcon.Clicked += (_, _) => ShowMainWindow(desktop);
+
+        var icons = new TrayIcons { _trayIcon };
+        TrayIcon.SetIcons(this, icons);
+
+        // Intercept the title-bar close button: hide to tray instead of quitting
+        if (desktop.MainWindow is { } win)
+            win.Closing += OnMainWindowClosing;
+    }
+
+    private void OnMainWindowClosing(object? sender, WindowClosingEventArgs e)
+    {
+        // Let OS shutdown / tray "Exit" pass through; handle everything else
+        if (_isRealExit) return;
+
+        e.Cancel = true;
+        if (sender is Window win)
+            HandleCloseAsync(win);
+    }
+
+    private async void HandleCloseAsync(Window win)
+    {
+        switch (_prefs?.Get("close_behavior"))
+        {
+            case "minimize":
+                win.Hide();
+                return;
+
+            case "exit":
+                _isRealExit = true;
+                win.Close();
+                return;
+        }
+
+        // Preference not yet set → ask the user
+        var dialog = new CloseActionDialog();
+        await dialog.ShowDialog(win);
+
+        if (dialog.SelectedAction is null) return; // Cancelled — do nothing
+
+        if (dialog.ShouldRemember)
+            _prefs?.Set("close_behavior", dialog.SelectedAction);
+
+        if (dialog.SelectedAction == "minimize")
+            win.Hide();
+        else
+        {
+            _isRealExit = true;
+            win.Close();
+        }
+    }
+
+    private static void ShowMainWindow(IClassicDesktopStyleApplicationLifetime desktop)
+    {
+        if (desktop.MainWindow is not { } win) return;
+
+        win.Show();
+        win.Activate();
+        if (win.WindowState == WindowState.Minimized)
+            win.WindowState = WindowState.Normal;
+    }
+
+    // ── Language-change handler ───────────────────────────────────────────────
+
+    [UnconditionalSuppressMessage("Trimming", "IL2026",
+        Justification = "Runtime ResourceInclude for i18n language switching; Avalonia AXAML resources are trimming-safe")]
     private void OnLanguageChanged(object? sender, EventArgs e)
     {
         var isZh = CultureHelper.Instance.CurrentCulture.TwoLetterISOLanguageName == "zh";
@@ -68,5 +171,10 @@ public class App : Application
             dict.MergedDictionaries.Clear();
             dict.MergedDictionaries.Add(new ResourceInclude(source) { Source = source });
         }
+
+        // Refresh tray-icon labels after the new resource dictionary is active
+        if (_trayShowItem is not null) _trayShowItem.Header = Strings.Get("Tray_Show");
+        if (_trayExitItem is not null) _trayExitItem.Header = Strings.Get("Tray_Exit");
+        if (_trayIcon    is not null) _trayIcon.ToolTipText = Strings.Get("App_Title");
     }
 }

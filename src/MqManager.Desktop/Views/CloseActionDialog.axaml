@@ -1,0 +1,48 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="MqManager.Desktop.Views.CloseActionDialog"
+        Title="{DynamicResource CloseDialog_Title}"
+        Icon="avares://MqManagerDesktop/Assets/app-icon.ico"
+        Width="340"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        CanResize="False">
+
+    <Border Padding="24,20,24,16">
+        <StackPanel Spacing="16">
+
+            <!-- Question -->
+            <TextBlock Text="{DynamicResource CloseDialog_Question}"
+                       FontSize="14" FontWeight="SemiBold"/>
+
+            <!-- Radio options -->
+            <StackPanel Spacing="8">
+                <RadioButton x:Name="MinimizeOption"
+                             Content="{DynamicResource CloseDialog_Minimize}"
+                             GroupName="CloseAction"
+                             IsChecked="True"/>
+                <RadioButton x:Name="ExitOption"
+                             Content="{DynamicResource CloseDialog_Exit}"
+                             GroupName="CloseAction"/>
+            </StackPanel>
+
+            <!-- Remember checkbox -->
+            <CheckBox x:Name="RememberOption"
+                      Content="{DynamicResource CloseDialog_Remember}"/>
+
+            <!-- Buttons -->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Spacing="8" Margin="0,4,0,0">
+                <Button Content="{DynamicResource CloseDialog_Cancel}"
+                        Width="80"
+                        Click="OnCancel"/>
+                <Button Content="{DynamicResource CloseDialog_OK}"
+                        Width="80"
+                        Click="OnConfirm"/>
+            </StackPanel>
+
+        </StackPanel>
+    </Border>
+</Window>
