@@ -27,6 +27,7 @@
                 <ListBox DockPanel.Dock="Top"
                          ItemsSource="{Binding Servers}"
                          SelectedItem="{Binding SelectedServer}"
+                         DoubleTapped="OnServerDoubleTapped"
                          MinHeight="300">
                     <ListBox.ItemTemplate>
                         <DataTemplate x:DataType="models:ServerConfig">

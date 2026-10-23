@@ -12,6 +12,17 @@
     <ProjectReference Include="..\MqManager.Core\MqManager.Core.csproj" />
   </ItemGroup>
 
+  <!--
+    ILLink root descriptor for IBM MQ .NET client.
+    Must live in the publishing project — TrimmerRootDescriptor items from
+    referenced library projects are NOT automatically propagated by MSBuild.
+    preserve="all" keeps every type and member (including reflection-only
+    constructors such as IBM.WMQ.ManagedCommonServices) unconditionally.
+  -->
+  <ItemGroup>
+    <TrimmerRootDescriptor Include="IbmMqTrimmerRoots.xml" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />

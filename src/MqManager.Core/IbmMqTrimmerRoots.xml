@@ -1,0 +1,16 @@
+<!--
+  ILLink root descriptor for IBM MQ .NET client assemblies.
+
+  IBM MQ uses reflection internally (Type.GetConstructor / Activator.CreateInstance)
+  to instantiate internal classes such as ManagedCommonServices.  Because those call
+  sites are invisible to the IL trimmer, any constructor the trimmer cannot statically
+  reach gets removed — causing MissingMethodException at runtime.
+
+  preserve="all" tells ILLink to keep every type and member in both assemblies
+  unconditionally, regardless of reachability analysis.  The assemblies are already
+  small (<2 MB each), so the size impact is negligible.
+-->
+<linker>
+  <assembly fullname="amqmdnetstd" preserve="all" />
+  <assembly fullname="amqmxmsstd"  preserve="all" />
+</linker>

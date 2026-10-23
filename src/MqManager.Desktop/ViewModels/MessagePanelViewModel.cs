@@ -195,6 +195,11 @@ public partial class MessagePanelViewModel : ViewModelBase
         QueueName = queue.Name;
         QueueDepth = queue.Depth;
         Messages.Clear();
+        MessageText = string.Empty;
+        FilePath = string.Empty;
+        FolderPath = string.Empty;
+        FilePathDisplay = string.Empty;
+        FolderPathDisplay = string.Empty;
         LoadDepth();
     }
 

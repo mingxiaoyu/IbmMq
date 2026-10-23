@@ -6,16 +6,22 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <!-- Prevent trimmer from removing IBM MQ assemblies that rely on reflection -->
+  <!--
+    Preserve IBM MQ assemblies from IL trimming.
+    TrimmerRootAssembly alone is insufficient: it roots only the public entry points of
+    each assembly, but IBM MQ's static initialiser resolves internal types (e.g.
+    ManagedCommonServices) via reflection, so ILLink silently strips their constructors.
+    TrimmerRootDescriptor with preserve="all" keeps every type and member unconditionally.
+  -->
   <ItemGroup>
-    <TrimmerRootAssembly Include="amqmdnetstd" />
-    <TrimmerRootAssembly Include="amqmxmsstd" />
+    <TrimmerRootDescriptor Include="IbmMqTrimmerRoots.xml" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="IBMXMSDotnetClient" Version="9.4.5.1" />
+    <PackageReference Include="IBMXMSDotnetClient" Version="9.2.5" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.0" />
   </ItemGroup>
 
 </Project>
