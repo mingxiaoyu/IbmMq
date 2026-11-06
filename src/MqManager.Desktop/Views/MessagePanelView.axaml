@@ -57,12 +57,15 @@
                     Height="32" />
         </StackPanel>
 
-        <!-- Body: resizable split between input and messages -->
+        <!-- Body: resizable split between input and messages.
+             Both rows are Star-sized so they enlarge proportionally with the window
+             (e.g. on maximize/full screen) instead of the input box staying a fixed height;
+             the GridSplitter still lets the user drag-adjust the ratio. -->
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="220" MinHeight="120" />
+                <RowDefinition Height="2*" MinHeight="120" />
                 <RowDefinition Height="6" />
-                <RowDefinition Height="*" MinHeight="80" />
+                <RowDefinition Height="1*" MinHeight="80" />
             </Grid.RowDefinitions>
 
             <!-- Input area (Row 0) -->
@@ -71,20 +74,33 @@
                     BorderThickness="0,0,0,1"
                     Padding="16,12">
                 <Grid RowDefinitions="Auto,*,Auto">
-                    <!-- Mode selection -->
-                    <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="16" Margin="0,0,0,8">
-                        <RadioButton Content="{Binding SingleMessageText}"
-                                     IsChecked="{Binding IsTextMode}"
-                                     GroupName="SendMode"
-                                     Command="{Binding SetTextModeCommand}" />
-                        <RadioButton Content="{Binding FromFileText}"
-                                     IsChecked="{Binding IsFileMode}"
-                                     GroupName="SendMode"
-                                     Command="{Binding SetFileModeCommand}" />
-                        <RadioButton Content="{Binding FromFolderText}"
-                                     IsChecked="{Binding IsFolderMode}"
-                                     GroupName="SendMode"
-                                     Command="{Binding SetFolderModeCommand}" />
+                    <!-- Mode selection + format action -->
+                    <StackPanel Grid.Row="0" Spacing="4" Margin="0,0,0,8">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="16">
+                                <RadioButton Content="{Binding SingleMessageText}"
+                                             IsChecked="{Binding IsTextMode}"
+                                             GroupName="SendMode"
+                                             Command="{Binding SetTextModeCommand}" />
+                                <RadioButton Content="{Binding FromFileText}"
+                                             IsChecked="{Binding IsFileMode}"
+                                             GroupName="SendMode"
+                                             Command="{Binding SetFileModeCommand}" />
+                                <RadioButton Content="{Binding FromFolderText}"
+                                             IsChecked="{Binding IsFolderMode}"
+                                             GroupName="SendMode"
+                                             Command="{Binding SetFolderModeCommand}" />
+                            </StackPanel>
+                            <Button Grid.Column="1"
+                                    Content="{Binding FormatButtonText}"
+                                    Command="{Binding FormatMessageCommand}"
+                                    IsVisible="{Binding IsTextMode}"
+                                    Height="28" />
+                        </Grid>
+                        <TextBlock Text="{Binding FormatStatusMessage}"
+                                   IsVisible="{Binding HasFormatStatusMessage}"
+                                   Foreground="#D32F2F"
+                                   FontSize="12" />
                     </StackPanel>
 
                     <!-- Message input (text mode) fills the middle row -->

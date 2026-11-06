@@ -88,6 +88,8 @@
     <system:String x:Key="Msg_IdLabel">ID:</system:String>
     <system:String x:Key="Msg_CorrLabel">Corr:</system:String>
     <system:String x:Key="Msg_CopyBody">Copy Body</system:String>
+    <system:String x:Key="Msg_Format">Format</system:String>
+    <system:String x:Key="Msg_FormatInvalid">Content is not valid JSON or XML</system:String>
 
     <!-- Channels -->
     <system:String x:Key="Channel_FilterPlaceholder">Filter (e.g. PAT*)</system:String>

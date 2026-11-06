@@ -50,6 +50,88 @@ public partial class MessagePanelViewModel : ViewModelBase
     [ObservableProperty]
     private string _messageText = string.Empty;
 
+    partial void OnMessageTextChanged(string value)
+    {
+        if (!string.IsNullOrEmpty(FormatStatusMessage))
+            FormatStatusMessage = string.Empty;
+    }
+
+    [RelayCommand]
+    private void FormatMessage()
+    {
+        if (string.IsNullOrWhiteSpace(MessageText))
+        {
+            FormatStatusMessage = string.Empty;
+            return;
+        }
+
+        if (TryFormatJson(MessageText, out var formattedJson))
+        {
+            MessageText = formattedJson;
+            FormatStatusMessage = string.Empty;
+            AuditLog.Instance.Log("Message", "Format", QueueName, true, "JSON");
+            return;
+        }
+
+        if (TryFormatXml(MessageText, out var formattedXml))
+        {
+            MessageText = formattedXml;
+            FormatStatusMessage = string.Empty;
+            AuditLog.Instance.Log("Message", "Format", QueueName, true, "XML");
+            return;
+        }
+
+        FormatStatusMessage = Strings.Get("Msg_FormatInvalid");
+        AuditLog.Instance.Log("Message", "Format", QueueName, false, "Not valid JSON/XML");
+    }
+
+    private static bool TryFormatJson(string text, out string formatted)
+    {
+        try
+        {
+            using var doc = System.Text.Json.JsonDocument.Parse(text);
+            // Write via JsonElement.WriteTo (trim-safe) rather than JsonSerializer.Serialize<T>,
+            // which is reflection-based and would warn/break under PublishTrimmed.
+            using var stream = new MemoryStream();
+            using (var writer = new System.Text.Json.Utf8JsonWriter(stream, new System.Text.Json.JsonWriterOptions
+            {
+                Indented = true,
+                // Default encoder escapes all non-ASCII (e.g. Chinese) as \uXXXX; relax that so
+                // formatted text stays human-readable.
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+            }))
+            {
+                doc.RootElement.WriteTo(writer);
+            }
+
+            formatted = System.Text.Encoding.UTF8.GetString(stream.ToArray());
+            return true;
+        }
+        catch
+        {
+            formatted = string.Empty;
+            return false;
+        }
+    }
+
+    private static bool TryFormatXml(string text, out string formatted)
+    {
+        try
+        {
+            var xdoc = System.Xml.Linq.XDocument.Parse(text);
+            var body = xdoc.ToString();
+            // XDocument.ToString() omits the prolog; re-attach it (as originally parsed) so
+            // formatting doesn't silently strip the XML declaration.
+            formatted = xdoc.Declaration is null ? body : $"{xdoc.Declaration}{Environment.NewLine}{body}";
+            return true;
+        }
+        catch
+        {
+            formatted = string.Empty;
+            return false;
+        }
+    }
+
     [ObservableProperty]
     private string _filePath = string.Empty;
 
@@ -148,6 +230,19 @@ public partial class MessagePanelViewModel : ViewModelBase
     [ObservableProperty]
     private string _copyBodyLabel = "Copy Body";
 
+    [ObservableProperty]
+    private string _formatButtonText = "Format";
+
+    [ObservableProperty]
+    private string _formatStatusMessage = string.Empty;
+
+    public bool HasFormatStatusMessage => !string.IsNullOrEmpty(FormatStatusMessage);
+
+    partial void OnFormatStatusMessageChanged(string value)
+    {
+        OnPropertyChanged(nameof(HasFormatStatusMessage));
+    }
+
     public ObservableCollection<MessageInfo> Messages { get; } = [];
 
     public MessagePanelViewModel(IMqService mqService)
@@ -183,6 +278,9 @@ public partial class MessagePanelViewModel : ViewModelBase
         BrowseButton = Strings.Get("Msg_Browse");
         ExportAllText = Strings.Get("Msg_ExportAll");
         CopyBodyLabel = Strings.Get("Msg_CopyBody");
+        FormatButtonText = Strings.Get("Msg_Format");
+        if (!string.IsNullOrEmpty(FormatStatusMessage))
+            FormatStatusMessage = Strings.Get("Msg_FormatInvalid");
     }
 
     partial void OnQueueDepthChanged(long value)

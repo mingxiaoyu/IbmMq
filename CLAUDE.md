@@ -246,7 +246,7 @@ Key behavioral notes:
 - **`MainWindowViewModel`** — 4 tabs: Queues (0), Channels (1), Connections (2), Log (3). Tab 3 sets `SidebarContent = null` (full-width audit log). Dark mode toggle via `ToggleThemeCommand`. Language toggle via `ToggleLanguageCommand`. Reads saved theme from `PreferencesRepository` on startup.
 - **`QueueListViewModel`** — client-side glob filter wraps bare text with `*...*` for fuzzy matching. Uses `CacheRepository` to show cached queue names immediately, then refreshes from Core service. `SetServer(ServerConfig)` updates the current server for cache keying.
 - **`QueueActionsViewModel`** — `StatusMessage` observable property shows create/delete error feedback. `SetRefreshAction(Action)` wires the refresh callback.
-- **`MessagePanelViewModel`** — three send modes: text (0), file (1), folder (2). Folder mode iterates all files and puts each as a message. `ConsumeAllAsync` drains in 100-message batches until queue is empty.
+- **`MessagePanelViewModel`** — three send modes: text (0), file (1), folder (2). Folder mode iterates all files and puts each as a message. `ConsumeAllAsync` drains in 100-message batches until queue is empty. `FormatMessageCommand` pretty-prints `MessageText` in place (JSON via `JsonElement.WriteTo(Utf8JsonWriter)` — trim-safe, not `JsonSerializer.Serialize<T>`; XML via `XDocument`, re-attaching the original `Declaration` since `ToString()` drops it); on failure sets `FormatStatusMessage` (`Msg_FormatInvalid`), cleared automatically whenever `MessageText` changes. The input/messages split (`MessagePanelView.axaml`) uses Star-sized (not fixed-pixel) `RowDefinition`s so both panes scale proportionally on window resize/maximize; the `GridSplitter` between them still lets the user drag-adjust the ratio (Avalonia rewrites both sides' star values on drag).
 - **`ChannelStatusViewModel`** — two-tab panel (Status + ConnInfo); ConnInfo loaded lazily on tab switch. `IsForceStop` and `IsForceReset` toggle force flags; no `IsForceStart` (StartChannel has no force).
 - **`ConnectionListViewModel`** — `ExportCsvAsync` uses `StorageProvider.SaveFilePickerAsync` for user-chosen path; exports `_allConnections` (full list, not filtered view).
 - **`AuditLogViewModel`** — subscribes to `AuditLogService.Instance.EntryAdded`; inserts new entries at index 0 (newest-first) via `Dispatcher.UIThread.Post`. `SaveToFileCommand` uses `StorageProvider` to write CSV. `ClearLogCommand` clears the collection.
@@ -258,7 +258,7 @@ Key behavioral notes:
 
 Categories used across VMs:
 - `"Queue"` — Create, Delete, Purge
-- `"Message"` — Put, Browse, Get, Purge, SaveLog
+- `"Message"` — Put, Browse, Get, Purge, SaveLog, Format
 - `"Channel"` — Start, Stop, Reset, Refresh
 - `"Connection"` — ExportCSV
 - `"System"` — Connect, Disconnect, SaveLog (from AuditLogViewModel)

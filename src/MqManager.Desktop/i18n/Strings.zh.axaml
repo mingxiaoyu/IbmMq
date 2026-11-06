@@ -88,6 +88,8 @@
     <system:String x:Key="Msg_IdLabel">ID:</system:String>
     <system:String x:Key="Msg_CorrLabel">关联:</system:String>
     <system:String x:Key="Msg_CopyBody">复制内容</system:String>
+    <system:String x:Key="Msg_Format">格式化</system:String>
+    <system:String x:Key="Msg_FormatInvalid">内容不是有效的 JSON 或 XML 格式</system:String>
 
     <!-- Channels -->
     <system:String x:Key="Channel_FilterPlaceholder">过滤（如 PAT*）</system:String>
